@@ -41,7 +41,6 @@ public class PoiXmlbeansTest {
     private static String unicodeText = "𝝊𝝋𝝌𝝍𝝎𝝏𝝐𝝑𝝒𝝓𝝔𝝕𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟𝝠𝝡𝝢𝝣𝝤𝝥𝝦𝝧𝝨𝝩𝝪𝝫𝝬𝝭𝝮𝝯𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺";
 
     public static void main(String[] args) {
-        File tf = null;
         try {
             try(Workbook wb = new XSSFWorkbook()) {
                 addCells(wb);
