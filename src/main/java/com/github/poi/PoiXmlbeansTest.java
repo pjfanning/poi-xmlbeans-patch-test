@@ -33,30 +33,21 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.util.TempFile;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class PoiXmlbeansTest {
 
+    private static String unicodeText = "𝝊𝝋𝝌𝝍𝝎𝝏𝝐𝝑𝝒𝝓𝝔𝝕𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟𝝠𝝡𝝢𝝣𝝤𝝥𝝦𝝧𝝨𝝩𝝪𝝫𝝬𝝭𝝮𝝯𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺";
+
     public static void main(String[] args) {
         File tf = null;
         try {
-            tf = TempFile.createTempFile("poi-xmlbeans-test", ".xlsx");
-            String unicodeText = "𝝊𝝋𝝌𝝍𝝎𝝏𝝐𝝑𝝒𝝓𝝔𝝕𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟𝝠𝝡𝝢𝝣𝝤𝝥𝝦𝝧𝝨𝝩𝝪𝝫𝝬𝝭𝝮𝝯𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺";
-            //Doesn't work for SXSSFWorkbook - should be fixed in poi-ooxml 3.17beta2
-            //https://bz.apache.org/bugzilla/show_bug.cgi?id=61246
             try(Workbook wb = new XSSFWorkbook()) {
-                Sheet sheet = wb.createSheet("Sheet1");
-                Row row = sheet.createRow(0);
-                Cell cell = row.createCell(0);
-                cell.setCellValue(unicodeText);
-                try(FileOutputStream os = new FileOutputStream(tf)) {
-                    wb.write(os);
-                }
-                try (FileInputStream fis = new FileInputStream(tf);
-                        XSSFWorkbook wb2 = new XSSFWorkbook(fis)) {
-                    System.out.println("Testing setCellValue");
-                    printText(wb2);
-                }
+                addCells(wb);
+            }
+            try(Workbook wb = new SXSSFWorkbook()) {
+                addCells(wb);
             }
             String filename = args.length > 0 ? args[0] : "sample.xlsx";
             try (FileInputStream fis = new FileInputStream(filename);
@@ -71,8 +62,26 @@ public class PoiXmlbeansTest {
             }
         } catch (Throwable t) {
             t.printStackTrace();
+        }
+    }
+
+    private static void addCells(Workbook wb) throws IOException {
+        File tf = TempFile.createTempFile("poi-xmlbeans-test", ".xlsx");
+        try {
+            Sheet sheet = wb.createSheet("Sheet1");
+            Row row = sheet.createRow(0);
+            Cell cell = row.createCell(0);
+            cell.setCellValue(unicodeText);
+            try (FileOutputStream os = new FileOutputStream(tf)) {
+                wb.write(os);
+            }
+            try (FileInputStream fis = new FileInputStream(tf);
+                 XSSFWorkbook wb2 = new XSSFWorkbook(fis)) {
+                System.out.println("Testing setCellValue");
+                printText(wb2);
+            }
         } finally {
-            if(tf != null) tf.delete();
+            tf.delete();
         }
     }
     
