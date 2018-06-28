@@ -1,6 +1,7 @@
-resolvers += Resolver.sonatypeRepo("releases")
+resolvers += 
+  "Apache Releases" at "https://repository.apache.org/content/repositories/releases"
 
 libraryDependencies ++= Seq(
-  "org.apache.poi" % "poi-ooxml" % "3.17" exclude("org.apache.xmlbeans","xmlbeans"),
-  "com.github.pjfanning" % "xmlbeans" % "2.6.5"
+  "org.apache.poi" % "poi-ooxml" % "3.17",
+  "org.apache.xmlbeans" % "xmlbeans" % "3.0.0"
 )
