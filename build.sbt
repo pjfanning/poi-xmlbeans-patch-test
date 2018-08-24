@@ -3,6 +3,6 @@ resolvers +=
 
 libraryDependencies ++= Seq(
   "org.apache.poi" % "poi-ooxml" % "3.17",
-  "org.apache.xmlbeans" % "xmlbeans" % "3.0.0",
+  "org.apache.xmlbeans" % "xmlbeans" % "3.0.1",
   "xerces" % "xercesImpl" % "2.12.0"
 )
