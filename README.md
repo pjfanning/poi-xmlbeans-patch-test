@@ -1,4 +1,4 @@
-# poi-poi-xmlbeans-patch-test
+# poi-xmlbeans-patch-test
 
 ## Running the sample code
 
