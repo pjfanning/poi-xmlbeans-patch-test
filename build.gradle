@@ -1,0 +1,16 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+version = '0.1.0'
+
+mainClassName = 'com.github.poi.PoiXmlbeansTest'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.poi:poi-ooxml:4.0.1'
+    compile 'org.apache.xmlbeans:xmlbeans:3.0.2'
+    compile 'xerces:xercesImpl:2.12.0'
+}

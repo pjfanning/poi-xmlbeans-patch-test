@@ -2,8 +2,7 @@
 
 ## Running the sample code
 
-- [Install SBT](http://www.scala-sbt.org/)
-- `sbt "run [filename]"`
+- `./gradlew run --args=sample.xlsx`
 
 
 The test code will extract the text from the spreadsheet. If you don't supply a filename, it will read the sample.xlsx.
